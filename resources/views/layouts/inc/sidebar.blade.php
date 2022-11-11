@@ -40,11 +40,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark {{ Request::is('myguest*') ? 'bg-gradient-info' : '' }} " href="/myguest">
+          <a class="nav-link text-dark {{ Request::is('mystory*') ? 'bg-gradient-info' : '' }} " href="/mystory">
             <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">account_box</i>
+              <i class="material-icons opacity-10">wc</i>
             </div>
-            <span class="nav-link-text ms-1">Tamu</span>
+            <span class="nav-link-text ms-1">Story</span>
           </a>
         </li>
         <li class="nav-item">

@@ -42,8 +42,9 @@ CREATE TABLE `events` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `id_undangan` bigint(20) unsigned NOT NULL,
   `title` char(50) NOT NULL,
-  `date_start` datetime NOT NULL,
-  `date_end` datetime NOT NULL,
+  `date` date NOT NULL,
+  `date_start` time NOT NULL,
+  `date_end` time NOT NULL,
   `location` varchar(255) NOT NULL,
   `desc` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -51,14 +52,16 @@ CREATE TABLE `events` (
   PRIMARY KEY (`id`),
   KEY `pk_event` (`id_undangan`),
   CONSTRAINT `pk_event` FOREIGN KEY (`id_undangan`) REFERENCES `undangans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `events` */
 
-insert  into `events`(`id`,`id_undangan`,`title`,`date_start`,`date_end`,`location`,`desc`,`created_at`,`updated_at`) values 
-(1,1,'Event1','2022-11-02 18:52:30','2022-11-03 18:52:32','bali','kwowowowow',NULL,NULL),
-(2,4,'Event2','2022-11-02 19:11:00','2022-11-03 19:11:01','bali','hahahha',NULL,NULL),
-(3,1,'Event3','2022-11-02 19:11:31','2022-11-03 19:11:33','jawa','xd',NULL,NULL);
+insert  into `events`(`id`,`id_undangan`,`title`,`date`,`date_start`,`date_end`,`location`,`desc`,`created_at`,`updated_at`) values 
+(1,4,'Event1','2022-11-09','18:52:30','18:52:32','bali','kwowowowow',NULL,'2022-11-07 17:25:52'),
+(2,4,'Event2','2022-11-09','19:11:00','19:11:01','bali','hahahha',NULL,NULL),
+(4,7,'Cek1','2022-11-09','00:00:00','00:00:00','Bali','kwowowow','2022-11-07 16:21:21','2022-11-07 18:16:25'),
+(6,7,'Testss','2022-11-09','02:44:00','02:44:00','Bali','wkwoowow','2022-11-08 18:44:24','2022-11-08 18:44:24'),
+(7,7,'cek','2022-11-10','04:23:00','03:23:00','Bali','kwowowo','2022-11-08 19:23:22','2022-11-08 19:33:46');
 
 /*Table structure for table `failed_jobs` */
 
@@ -210,13 +213,14 @@ CREATE TABLE `trx` (
   KEY `pk_undangan` (`id_undangan`),
   CONSTRAINT `pk_undangan` FOREIGN KEY (`id_undangan`) REFERENCES `undangans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pk_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `trx` */
 
 insert  into `trx`(`id`,`id_user`,`id_undangan`,`keyword`,`date_start`,`date_end`,`created_at`,`updated_at`) values 
 (1,6,1,'coba','2022-11-02','2022-11-02',NULL,NULL),
-(2,6,4,'cek','2022-11-02','2022-11-02',NULL,NULL);
+(2,6,4,'cek','2022-11-02','2022-11-02',NULL,NULL),
+(3,4,6,'tess','2022-11-08','2022-11-08',NULL,NULL);
 
 /*Table structure for table `undangans` */
 
@@ -241,14 +245,16 @@ CREATE TABLE `undangans` (
   PRIMARY KEY (`id`),
   KEY `pk_user_undangan` (`id_user`),
   CONSTRAINT `pk_user_undangan` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `undangans` */
 
 insert  into `undangans`(`id`,`id_user`,`title`,`featured_image`,`person_1_name`,`person_2_name`,`person_1_image`,`person_2_image`,`desc_person_1`,`desc_person_2`,`desc_wedding`,`wedding_date`,`wedding_location`,`created_at`,`updated_at`) values 
-(1,6,'Undangan1','tes','nama1','nama2','','','data1','data2','skaskasas','2022-11-02 00:00:00','bali',NULL,NULL),
+(1,6,'UndanganTes','tes','Nama Pria','Nama Wanita','','','data1','data2','Om Swastiastu','2022-11-02 00:00:00','Bandung',NULL,'2022-11-07 17:36:42'),
 (4,3,'Coba','tes','nama1','nama2','','','data1','data2','ksaskaks','2022-11-02 00:00:00','bali',NULL,NULL),
-(5,7,'tes1','tes','nama1','nama1','','','data1','data2','kakaka','2022-11-04 21:36:21','bali',NULL,NULL);
+(5,7,'tes1','tes','nama1','nama1','','','data1','data2','kakaka','2022-11-04 21:36:21','bali',NULL,NULL),
+(6,4,'Cek','C:\\xampp\\tmp\\php7FA3.tmp','Pengantin Pria','Pengantin Wanita','C:\\xampp\\tmp\\php7FA1.tmp','C:\\xampp\\tmp\\php7FA2.tmp','kwowwow','wkowoww','kwowkwoow','2022-11-08 03:20:00','Bali','2022-11-07 16:18:31','2022-11-07 16:18:31'),
+(7,6,'Test','C:\\xampp\\tmp\\phpAF05.tmp','Pengantin Pria','Pengantin Wanita','C:\\xampp\\tmp\\phpAEF4.tmp','C:\\xampp\\tmp\\phpAF04.tmp','kwowowo','wkowowow','kwowow','2022-11-08 01:21:00','Bandung','2022-11-07 17:22:05','2022-11-07 17:22:05');
 
 /*Table structure for table `users` */
 

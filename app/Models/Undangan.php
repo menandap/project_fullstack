@@ -11,7 +11,7 @@ class Undangan extends Model
     protected $table = "undangans";
     protected $fillable = [
         'id_user',
-        'tittle',
+        'title',
         'featured_image',
         'person_1_name',
         'person_2_name',

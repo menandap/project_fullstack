@@ -47,15 +47,21 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label">Tanggal Mulai</label>
+                                            <label class="form-control-label">Tanggal</label>
+                                            <input type="text" id="" class="form-control" value="{{ $events->date }}" disabled readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-control-label">Mulai</label>
                                             <input type="text" id="" class="form-control" value="{{ $events->date_start }}" disabled readonly>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label class="form-control-label">Tanggal Berakhir</label>
+                                            <label class="form-control-label">Berakhir</label>
                                             <input type="text" id="" class="form-control" value="{{ $events->date_end }}" disabled readonly>
                                         </div>
                                     </div>

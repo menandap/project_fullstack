@@ -41,9 +41,9 @@
                                         <tr>
                                             <th class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">No.</th>
                                             <th class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">Undangan</th>
+                                            <th class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">Keyword</th>
                                             <th class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">Mulai</th>
                                             <th class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">Berakhir</th>
-                                            <th class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">Keyword</th>
                                             <th colspan="2" class="text-uppercase text-secondary text-lg font-weight-bolder ps-2">Action</th>            
                                         </tr>
                                     </thead>
@@ -51,7 +51,7 @@
                                         @foreach($transactions as $transaction)
                                         <tr>
                                             <td><p class="text-md font-weight-normal mb-0">{{ $transactions->firstItem()+$loop->index }}</p></th>
-                                            <td><p class="text-md font-weight-normal mb-0">{{ $transaction->id_undangan }}</p></td>                
+                                            <td><p class="text-md font-weight-normal mb-0">{{ $transaction->title }}</p></td>                
                                             <td><p class="text-md font-weight-normal mb-0">{{ $transaction->keyword}}</p></td>
                                             <td><p class="text-md font-weight-normal mb-0">{{ $transaction->date_start }}</p></td>
                                             <td><p class="text-md font-weight-normal mb-0">{{ $transaction->date_end }}</p></td>

@@ -13,7 +13,22 @@
 	<meta name="author" content="FREEHTML5.CO" />
 	<link href="{{ asset('dashboard/images/logo-black.png') }}" rel="icon">
 
- 	<meta property="og:title" content=""/>
+  <!-- 
+	//////////////////////////////////////////////////////
+
+	FREE HTML5 TEMPLATE 
+	DESIGNED & DEVELOPED by FREEHTML5.CO
+		
+	Website: 		http://freehtml5.co/
+	Email: 			info@freehtml5.co
+	Twitter: 		http://twitter.com/fh5co
+	Facebook: 		https://www.facebook.com/fh5co
+
+	//////////////////////////////////////////////////////
+	 -->
+
+  	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content=""/>
 	<meta property="og:site_name" content=""/>
@@ -86,10 +101,10 @@
 				<div class="col-md-8 col-md-offset-2 text-center">
 					<div class="display-t">
 						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>Nama1 &amp; Nama2</h1>
-							<h2>Acara Pernikahan Kami</h2>
+							<h1>{{$undangan->person_1_name}} &amp; {{$undangan->person_2_name}}</h1>
+							<h2>Acara {{$undangan->title}}</h2>
 							<div class="simply-countdown simply-countdown-one"></div>
-							<p><a href="#" class="btn btn-default btn-sm">Save the date</a></p>
+							<p><a href="#" class="btn btn-default btn-sm">Simpan Tanggal</a></p>
 						</div>
 					</div>
 				</div>
@@ -102,8 +117,15 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 					<h2>Kami Mengundang Anda</h2>
-					<h3>23 Oktober 2022, Denpasar-Bali</h3>
-					<p>Salam, kami harapkan anda untuk hadir pada ....</p>
+					@php
+
+					$value = strtotime($undangan->wedding_date);
+
+					$date = date('d M Y', $value);
+
+					@endphp
+					<h3>{{$date}}, {{$undangan->wedding_location}}</h3>
+					<p>{{$undangan->desc_wedding}}</p>
 				</div>
 			</div>
 			<div class="couple-wrap animate-box">
@@ -112,8 +134,8 @@
 						<img src="../undangan/template-1/images/groom.jpg" alt="groom" class="img-responsive">
 					</div>
 					<div class="desc-groom">
-						<h3>Nama1</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+						<h3>{{$undangan->person_1_name}}</h3>
+						<p>{{$undangan->desc_person_1}}</p>
 					</div>
 				</div>
 				<p class="heart text-center"><i class="icon-heart2"></i></p>
@@ -122,8 +144,8 @@
 						<img src="../undangan/template-1/images/bride.jpg" alt="groom" class="img-responsive">
 					</div>
 					<div class="desc-bride">
-						<h3>Nama2</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						<h3>{{$undangan->person_2_name}}</h3>
+						<p>{{$undangan->desc_person_2}}</p>
 					</div>
 				</div>
 			</div>
@@ -139,42 +161,71 @@
 					<h2>Rundown Acara</h2>
 				</div>
 			</div>
+
+			@php
+
+			$cek = App\Models\Event::where('id_undangan', '=', $undangan->id)->count();								
+
+			@endphp
+
 			<div class="row">
 				<div class="display-t">
 					<div class="display-tc">
-						<div class="col-md-10 col-md-offset-1">
+						<div class="col-md-10 col-md-offset-1" style="display:flex; flex-direction:row; justify-content:center;">
+							@if($cek != 0)
+							@foreach($event as $events)
 							<div class="col-md-6 col-sm-6 text-center">
 								<div class="event-wrap animate-box">
-									<h3>Acara1</h3>
+									<h3>{{ $events->title }}</h3>
 									<div class="event-col">
 										<i class="icon-clock"></i>
-										<span>4:00 PM</span>
-										<span>6:00 PM</span>
+										@php
+
+										$value1 = strtotime($events->date_start);
+										$time1 = date('H:i', $value1);
+
+										$value2 = strtotime($events->date_end);
+										$time2 = date('H:i', $value2);
+
+										@endphp
+										<span>{{ $time1 }}</span>
+										<span>{{ $time2 }}</span>
 									</div>
 									<div class="event-col">
 										<i class="icon-calendar"></i>
-										<span>Senin 28</span>
-										<span>November, 2022</span>
+										@php
+
+										$value = strtotime($events->date);
+
+										$date1 = date('Y', $value);
+										$date2 = date('d M', $value);
+
+										@endphp
+										<span>{{ $date1 }}</span>
+										<span>{{ $date2 }}</span>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p>{{ $events->desc }}</p>
 								</div>
 							</div>
+							@endforeach
+							@else
 							<div class="col-md-6 col-sm-6 text-center">
 								<div class="event-wrap animate-box">
-									<h3>Acara2</h3>
+									<h3>N/A</h3>
 									<div class="event-col">
 										<i class="icon-clock"></i>
-										<span>7:00 PM</span>
-										<span>12:00 AM</span>
+										<span>N/A</span>
+										<span>N/A</span>
 									</div>
 									<div class="event-col">
 										<i class="icon-calendar"></i>
-										<span>Senin 28</span>
-										<span>November, 2022</span>
+										<span>N/A</span>
+										<span>N/A</span>
 									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+									<p>Event Belum Dibuat</p>
 								</div>
-							</div>
+							</div>								
+							@endif
 						</div>
 					</div>
 				</div>
