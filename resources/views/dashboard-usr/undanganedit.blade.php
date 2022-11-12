@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Undangan')
 @section('page1', 'Undangan')
-@section('page2', 'Undangan Product')
+@section('page2', 'Undangan Edit')
 
 @section('content')
     <div class="main-panel">
@@ -80,27 +80,24 @@
                                 <div class="row">
                                     <div class="col-lg">
                                         <label class="form-control-label">Foto Pengantin Pria (Rasio : 1X1)</label>
-                                        <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:200px; height:200px;">    
-                                        <input type="file" name="person_1_image">
-                                        {{-- <div class="thumbnail">
-                                            <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:200px; height:200px;">
-                                        </div> --}}
+                                        <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$undangan->person_1_image) }}" alt="light" style="width:200px; height:200px;">    
+                                        <div class="input-group input-group-outline my-3">                                    
+                                            <input type="file" class="form-control" placeholder="" name="person_1_image" value="{{$undangan->person_1_image}}" multiple>
+                                        </div>    
                                     </div>
                                     <div class="col-lg">
                                         <label class="form-control-label">Foto Pengantin Wanita (Rasio : 1X1)</label>
-                                        <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:200px; height:200px;">    
-                                        <input type="file" name="person_2_image">
-                                        {{-- <div class="thumbnail">
-                                            <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:200px; height:200px;">
-                                        </div> --}}
+                                        <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$undangan->person_2_image) }}" alt="light" style="width:200px; height:200px;">    
+                                        <div class="input-group input-group-outline my-3">                                    
+                                            <input type="file" class="form-control" placeholder="" name="person_2_image" value="{{$undangan->person_2_image}}" multiple>
+                                        </div>    
                                     </div>
                                     <div class="col-lg">
                                         <label class="form-control-label">Cover Undangan</label>
-                                        <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:400px; height:200px;">    
-                                        <input type="file" name="featured_image">
-                                        {{-- <div class="thumbnail">
-                                            <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:600px; height:300px;">
-                                        </div> --}}
+                                        <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$undangan->featured_image) }}" alt="light" style="width:400px; height:200px;">    
+                                        <div class="input-group input-group-outline my-3">                                    
+                                            <input type="file" class="form-control" placeholder="" name="featured_image" value="{{$undangan->featured_image}}" multiple>
+                                        </div>    
                                     </div>
                                 </div>
                                 <div class="col-lg">

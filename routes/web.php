@@ -6,7 +6,7 @@ use App\Http\Controllers\UserDashboardController;
 
 // AUTH
 Route::view('/login', 'auth.login')->name('login');
-Route::post('/actLogin', [UserAuthController::class, 'actLogin']);
+Route::post('/actLogin', [UserAuthController::class, 'actLogin'])->name('actLogin');
 Route::view('/register', 'auth.register')->name('register');
 Route::post('/actRegister', [UserAuthController::class, 'actRegister']);
 Route::post('/logout', [UserAuthController::class, 'logout'])->name('logout');
@@ -42,7 +42,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mystory/{id}/delete', [UserDashboardController::class, 'story_delete']);
 
     Route::get('/mytransaction', [UserDashboardController::class, 'transaction']);
-
     Route::get('/seeundangan/{id}', [UserDashboardController::class, 'see_undangan'])->name('seeundangan');
 });
 

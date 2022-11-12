@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Undangan')
 @section('page1', 'Undangan')
-@section('page2', 'Undangan Product')
+@section('page2', 'Undangan Detail')
 
 @section('content')
     <div class="main-panel">
@@ -21,7 +21,7 @@
                             <br>  
 
                             <div class="row">
-                            <div class="row">
+                                <div class="row">
                                     <div class="col-lg-4">
                                         <div class="input-group-static mb-4">
                                             <label class="form-control-label">Judul</label>
@@ -79,15 +79,15 @@
                                     <div class="row">
                                         <div class="col-lg">
                                             <label class="form-control-label">Foto Pengantin Pria (Rasio : 1X1)</label>
-                                            <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:200px; height:200px;">    
+                                            <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$undangan->person_1_image) }}" alt="light" style="width:200px; height:200px;">    
                                         </div>
                                         <div class="col-lg">
                                             <label class="form-control-label">Foto Pengantin Wanita (Rasio : 1X1)</label>
-                                            <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:200px; height:200px;">    
+                                            <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$undangan->person_2_image) }}" alt="light" style="width:200px; height:200px;">   
                                         </div>
                                         <div class="col-lg">
                                             <label class="form-control-label">Cover Undangan</label>
-                                            <img class="img-fluid-left img-thumbnail" src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" alt="light" style="width:400px; height:200px;">    
+                                            <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$undangan->featured_image) }}" alt="light" style="width:400px; height:200px;">    
                                         </div>
                                     </div>  
                                 </div>

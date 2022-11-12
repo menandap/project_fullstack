@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'event')
-@section('page1', 'event')
-@section('page2', 'event Product')
+@section('title', 'Event')
+@section('page1', 'Event')
+@section('page2', 'Event Edit')
 
 @section('content')
     <div class="main-panel">

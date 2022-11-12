@@ -94,7 +94,7 @@
 		</div>
 	</nav>
 
-	<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(images/img_bg_2.jpg);" data-stellar-background-ratio="0.5">
+	<header id="fh5co-header" class="fh5co-cover" style="background-image: url('{{ url('/db/'.$undangan->featured_image)}}');" role="banner" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row">
@@ -131,7 +131,7 @@
 			<div class="couple-wrap animate-box">
 				<div class="couple-half">
 					<div class="groom">
-						<img src="../undangan/template-1/images/groom.jpg" alt="groom" class="img-responsive">
+						<img src="{{ url('/db/'.$undangan->person_1_image) }}" alt="groom" class="img-responsive">
 					</div>
 					<div class="desc-groom">
 						<h3>{{$undangan->person_1_name}}</h3>
@@ -141,7 +141,7 @@
 				<p class="heart text-center"><i class="icon-heart2"></i></p>
 				<div class="couple-half">
 					<div class="bride">
-						<img src="../undangan/template-1/images/bride.jpg" alt="groom" class="img-responsive">
+						<img src="{{ url('/db/'.$undangan->person_2_image) }}" alt="groom" class="img-responsive">
 					</div>
 					<div class="desc-bride">
 						<h3>{{$undangan->person_2_name}}</h3>
@@ -233,54 +233,77 @@
 		</div>
 	</div>
 
+	@php
+
+		$tes = App\Models\Story::where('id_undangan', '=', $undangan->id)->count();	
+		
+	@endphp
+
 	<div id="fh5co-couple-story">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 					<span>Kami Mencintai Satu Sama Lain</span>
 					<h2>Cerita Kami</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12 col-md-offset-0">
 					<ul class="timeline animate-box">
-						<li class="animate-box">
-							<div class="timeline-badge" style="background-image:url(images/couple-1.jpg);"></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Cerita1</h3>
-									<span class="date">Desember 25, 2015</span>
+						@if($tes != 0)
+						@php
+							$index_story = 0;
+						@endphp
+						@foreach($story as $storys)
+						@php
+							$tgl = strtotime($storys->date);
+							$tgl_story = date('d M Y', $tgl);
+						@endphp
+						@if($index_story%2==0)
+							<li class="animate-box">
+								<div class="timeline-badge" style="background-image: url('{{ url('/db/'.$storys->images)}}');"></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3 class="timeline-title">{{ $storys->title }}</h3>
+										<span class="date">{{ $tgl_story }}</span>
+									</div>
+									<div class="timeline-body">
+										<p>{{ $storys->desc }}</p>
+									</div>
 								</div>
-								<div class="timeline-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+							</li>
+						@else
+							<li class="timeline-inverted animate-box">
+								<div class="timeline-badge" style="background-image: url('{{ url('/db/'.$storys->images)}}');"></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3 class="timeline-title">{{ $storys->title }}</h3>
+										<span class="date">{{ $tgl_story }}</span>
+									</div>
+									<div class="timeline-body">
+										<p>{{ $storys->desc }}</p>
+									</div>
 								</div>
-							</div>
-						</li>
-						<li class="timeline-inverted animate-box">
-							<div class="timeline-badge" style="background-image:url(images/couple-2.jpg);"></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Cerita2</h3>
-									<span class="date">Desember 28, 2015</span>
+							</li>
+						@endif
+						@php
+						$index_story++;
+						@endphp
+						@endforeach
+						@else
+							<li class="timeline-inverted animate-box">
+								<div class="timeline-badge" style="background-image:url(images/couple-2.jpg);"></div>
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3 class="timeline-title">N/A</h3>
+										<span class="date">N/A</span>
+									</div>
+									<div class="timeline-body">
+										<p>Belum ada cerita yang ditambahkan</p>
+									</div>
 								</div>
-								<div class="timeline-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-								</div>
-							</div>
-						</li>
-						<li class="animate-box">
-							<div class="timeline-badge" style="background-image:url(images/couple-3.jpg);"></div>
-							<div class="timeline-panel">
-								<div class="timeline-heading">
-									<h3 class="timeline-title">Cerita3</h3>
-									<span class="date">Januari 1, 2016</span>
-								</div>
-								<div class="timeline-body">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-								</div>
-							</div>
-						</li>
+							</li>
+						@endif
 			    	</ul>
 				</div>
 			</div>
@@ -293,7 +316,6 @@
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
 					<span>Memori Yang Kami Habiskan</span>
 					<h2>Galeri Foto Kami</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
 				</div>
 			</div>
 			<div class="row row-bottom-padded-md">

@@ -30,7 +30,7 @@
 					<img src="{{ asset ('pages/images/img-01.png') }}" alt="IMG">
 				</div>
 				
-				<form action="/actLogin" method="POST" class="login100-form validate-form">
+				<form action="{{ route('actLogin') }}" method="POST" class="login100-form validate-form">
 					@csrf
 					<span class="login100-form-title">
 						Member Login

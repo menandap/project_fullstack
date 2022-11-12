@@ -261,7 +261,7 @@
             <div class="member" data-aos="zoom-in" data-aos-delay="100">
               <div class="pic"><img src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" class="img-fluid" alt=""></div>
               <div class="member-info">
-                <h4>Gede Ananda Prema Putra</h4>
+                <h4>Ananda</h4>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -276,7 +276,7 @@
             <div class="member" data-aos="zoom-in" data-aos-delay="200">
               <div class="pic"><img src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" class="img-fluid" alt=""></div>
               <div class="member-info">
-                <h4>Firmansyah H. Kurniawan</h4>
+                <h4>Angga</h4>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -291,7 +291,22 @@
             <div class="member" data-aos="zoom-in" data-aos-delay="300">
               <div class="pic"><img src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" class="img-fluid" alt=""></div>
               <div class="member-info">
-                <h4>Moch Raka Fakhzikril</h4>
+                <h4>Aisya</h4>
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="member" data-aos="zoom-in" data-aos-delay="300">
+              <div class="pic"><img src="{{ asset('dashboard/assets/img/team/team-0.jpg') }}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Gathot</h4>
                 <div class="social">
                   <a href=""><i class="bi bi-twitter"></i></a>
                   <a href=""><i class="bi bi-facebook"></i></a>
@@ -320,7 +335,7 @@
             <div class="footer-info">
               <h3>Invite.In</h3>
               <p>
-                Project Capstone - Bisa AI Academy <br>
+                Project Fullstack - Bisa AI Academy <br>
               </p>
               <div class="social-links mt-3">
                 <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>

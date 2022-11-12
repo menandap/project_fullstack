@@ -9,11 +9,6 @@ use Auth;
 
 class UserAuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function actLogin(Request $request)
     {
         // if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -21,11 +16,11 @@ class UserAuthController extends Controller
         // }
 
         if(!Auth::attempt($request->only('email', 'password'), $request->filled('remember'))){
-            // throw ValidationException::withMessages([
-            //     'error' => 'invalid email or password'
-            // ]);
+
             return back()->with(['error' => 'invalid email or password']);
         }
+
+        // return $request;
 
         return redirect()->route('dashboard');
     }
@@ -37,6 +32,8 @@ class UserAuthController extends Controller
         $register->email = $request->email;
         $register->password = bcrypt($request->password);
         $register->save();
+        // return $register;
+
         return redirect()->back();
     }
 
