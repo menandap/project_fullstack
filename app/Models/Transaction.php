@@ -12,6 +12,7 @@ class Transaction extends Model
     protected $fillable = [
         'id_user',
         'id_undangan',
+        'status',
         'keyword',
         'date_start',
         'date_end'

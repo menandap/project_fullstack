@@ -304,10 +304,70 @@ class UserDashboardController extends Controller
         $transactions = DB::table('trx')
         ->join('undangans', 'trx.id_undangan', '=', 'undangans.id')
         ->join('users', 'users.id', '=', 'undangans.id_user')
-        ->select('trx.id', 'trx.id_undangan', 'trx.keyword', 'trx.date_start', 'trx.date_end', 'undangans.title')
+        ->select('trx.id', 'trx.id_undangan', 'trx.status', 'trx.keyword', 'trx.date_start', 'trx.date_end', 'undangans.title')
         ->where('users.id', '=', $users)->paginate(5);
 
         return view('dashboard-usr.transactionlist', compact('transactions'));
+    }
+
+    public function transaction_show($id){
+        $trx = Transaction::where('id', '=', $id)->first();
+        return view('dashboard-usr.transactiondetail', compact('trx'));
+    }
+
+    public function transaction_create(){
+        $users = Auth::user()->id;
+        $undangan = Undangan::where('id_user', '=', $users)->get();
+        return view('dashboard-usr.transactionadd', compact('undangan','users'));
+    }
+
+    public function transaction_store(Request $request){
+        // $transaction = $request->all();
+        $users = Auth::user()->id;
+        Transaction::create([
+            'id_user' => $users,
+            'id_undangan' => $request->id_undangan,
+            'status' => 1,
+            'keyword' => $request->keyword,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+        ]);
+        // Transaction::create($transaction);
+
+        return Redirect::to('/mytransaction')->with(['success' => 'Berhasil menambahkan transaction']);
+    }
+
+    public function transaction_edit($id){
+        $users = Auth::user()->id;
+        $transaction = Transaction::find($id);
+        $undangan = Undangan::where('id_user', '=', $users)->get();
+        $undangan_select = DB::table('trx')
+        ->join('undangans', 'trx.id_undangan', '=', 'undangans.id')
+        ->select('undangans.id', 'undangans.title')
+        ->where('trx.id', '=', $id)->first();
+        
+        return view('dashboard-usr.transactionedit', compact('transaction', 'undangan', 'undangan_select'));
+    }
+
+    public function transaction_update(Request $request, $id){
+        $users = Auth::user()->id;
+        $transaction= [
+            'id_user' => $users,
+            'id_undangan' => $request->id_undangan,
+            'status' => 1,
+            'keyword' => $request->keyword,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
+        ];
+        Transaction::where('id',$id)->update($transaction);
+
+        return Redirect::to('/mytransaction')->with(['success' => 'Berhasil mengedit transaction']);
+    }
+
+    public function transaction_delete($id){
+        Transaction::where('id',$id)->delete();
+
+        return Redirect::to('/mytransaction')->with(['error' => 'Berhasil menghapus transaction']);
     }
 
     public function image_create($id){
