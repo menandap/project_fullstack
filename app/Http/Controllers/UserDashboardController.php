@@ -13,6 +13,7 @@ use App\Models\Undangan;
 use App\Models\Event;
 use App\Models\Transaction;
 use App\Models\Story;
+use App\Models\Image;
 use Auth;
 
 class UserDashboardController extends Controller
@@ -33,13 +34,14 @@ class UserDashboardController extends Controller
     }
 
     public function undangan_show($id){
+        $where = array('undangans.id' => $id);
         $undangan = Undangan::where('id', '=', $id)->first();
-        // $image = DB::table('products')
-        //     ->join('product_images', 'products.id', '=', 'product_images.product_id')
-        //     ->select('product_images.*')
-        //     ->where($where)->get();
+        $image = DB::table('undangans')
+            ->join('images', 'undangans.id', '=', 'images.id_undangan')
+            ->select('images.*')
+            ->where($where)->get();
         // return $undangans;
-        return view('dashboard-usr.undangandetail', compact('undangan'));
+        return view('dashboard-usr.undangandetail', compact('undangan','image'));
     }
 
     public function undangan_create(){
@@ -254,24 +256,36 @@ class UserDashboardController extends Controller
 
     public function story_edit($id){
         $users = Auth::user()->id;
-        $event = Event::find($id);
+        $story = Story::find($id);
         $undangan = Undangan::where('id_user', '=', $users)->get();
-        $undangan_select = DB::table('events')
-        ->join('undangans', 'events.id_undangan', '=', 'undangans.id')
+        $undangan_select = DB::table('storys')
+        ->join('undangans', 'storys.id_undangan', '=', 'undangans.id')
         ->select('undangans.id', 'undangans.title')
-        ->where('events.id', '=', $id)->first();
+        ->where('storys.id', '=', $id)->first();
         // $undangan_select = Undangan::where('id_undangan', $id)->first();
         // $users;
-        return view('dashboard-usr.eventedit', compact('event', 'undangan', 'undangan_select'));
+        return view('dashboard-usr.storyedit', compact('story', 'undangan', 'undangan_select'));
     }
 
-    public function story_update(Request $request, $id, Event $event){
+    public function story_update(Request $request, $id, Story $story){
 
         $data = $request->all();
-        $event = Event::find($id);
-        $event->fill($data)->save();
+        $story = Story::find($id);
+        $story->fill($data)->save();
 
-        return Redirect::to('/myevent')->with(['success' => 'Berhasil mengedit undangan']);
+        if($request->images){
+            $images = $request->file('images');
+            $story =  'story_image_' . time() . '.' . $images->getClientOriginalExtension();
+            $path = public_path('/db');
+            $images->move($path, $story);    
+
+            $image = [
+                'images' => $story,
+            ];
+            Story::where('id',$id)->update($image);
+        }
+
+        return Redirect::to('/mystory')->with(['success' => 'Berhasil mengedit undangan']);
     }
 
     public function story_delete($id){
@@ -296,18 +310,53 @@ class UserDashboardController extends Controller
         return view('dashboard-usr.transactionlist', compact('transactions'));
     }
 
+    public function image_create($id){
+        $undangan = Undangan::find($id);
+        return view('dashboard-usr.imageadd', compact('undangan','id'));
+    }
+
+    public function image_store(Request $request, $id){
+        // $this->validate($request, [
+        //     'files.*' => 'required',
+        // ]);   
+        
+        $images = $request->file('images');
+        $undangan_img =  'undangan_image_' . time() . '.' . $images->getClientOriginalExtension();
+        $path = public_path('/db');
+        $images->move($path, $undangan_img);
+
+        Image::create([
+            'id_undangan' => $id,
+            'images' => $undangan_img
+        ]);
+        
+        return redirect()->route('undangandetail', $id); 
+    }
+
+    public function image_delete($id){
+        $undangan_img = Image::find($id);
+        $image_path = public_path('db').'/'.$undangan_img->images;
+        unlink($image_path);
+        $undangan_img->delete();
+
+        // Image::where('id',$id)->delete();
+        return redirect()->back(); 
+    }
+
     public function see_undangan($id){
         // $users = Auth::user()->id;
         $undangan = Undangan::where('id', '=', $id)->first();
         $event = Event::where('id_undangan', '=', $id)->get();
         $story = Story::where('id_undangan', '=', $id)->get();
-        // $events = DB::table('events')
-        // ->join('undangans', 'events.id_undangan', '=', 'undangans.id')
-        // ->select('events.id', 'events.id_undangan', 'events.title', 'events.date_start', 'events.date_end', 'events.location', 'events.desc')
-        // ->where('undangans.id', '=', $id)->get();
-        // return $event; 
-        // return $undangan;
+        $image = Image::where('id_undangan', '=', $id)->get();
 
-        return view('undangan.template_ananda', compact('undangan','event','story'));
+        return view('undangan.template_ananda', compact('undangan','event','story','image'));
+    }
+
+    public function account(){
+        $users = Auth::user()->id;
+        $accounts = User::where('id', '=', $users)->first();
+
+        return view('dashboard-usr.accountdetail', compact('accounts'));
     }
 }

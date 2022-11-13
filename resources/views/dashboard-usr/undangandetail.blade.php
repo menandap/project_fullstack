@@ -91,7 +91,36 @@
                                         </div>
                                     </div>  
                                 </div>
-                            </div>
+                            </div><br><br>
+                    
+                            <div class="table">
+                                <div class="row">
+                                    <div class="col-6 align-items-center">
+                                            <h2 class="mb-0">Undangan Images</h2>
+                                    </div>
+                                    <div class="col-6 text-end align-items-center">
+                                        <a class="btn bg-gradient-success mb-0" href="/myimage/{{$undangan->id}}/create"><i class="material-icons text-sm">add</i>&nbsp;&nbsp;Add Image</a>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row pt-2">                                
+                                    @forelse($image as $images)         
+                                        <div class="col-lg-4">                                        
+                                            <div class="thumbnail">
+                                                <img class="img-fluid-left img-thumbnail" src="{{ url('/db/'.$images->images) }}" alt="light" style="width:300px; height:200px;">                                                                
+                                            </div>
+                                            <div class="pl-2">
+                                                <a href="/myimage/{{$images->id}}/delete" class="btn bg-gradient-danger" onclick="return confirm('Apa yakin ingin menghapus gambar ini?')">Hapus</a>
+                                            </div>
+                                        </div>		                                                                                     
+                                    @empty
+                                    <div class="col-6 align-items-center">
+                                        <h3 class="mb-0">Tidak Ada Foto</h3>
+                                    </div>
+                                    @endforelse                                
+                                </div>
+                            </div><br><br>
+
                         </div>
                     </div>
                 </div>

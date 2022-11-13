@@ -41,7 +41,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/mystory/{id}/update', [UserDashboardController::class, 'story_update']);
     Route::get('/mystory/{id}/delete', [UserDashboardController::class, 'story_delete']);
 
+    Route::get('/myimage/{id}/create', [UserDashboardController::class, 'image_create']);
+    Route::post('/myimage/{id}/store', [UserDashboardController::class, 'image_store']);
+    Route::get('/myimage/{id}/delete', [UserDashboardController::class, 'image_delete']);
+
+    Route::get('/myaccount', [UserDashboardController::class, 'account']);
+
     Route::get('/mytransaction', [UserDashboardController::class, 'transaction']);
+    
+
     Route::get('/seeundangan/{id}', [UserDashboardController::class, 'see_undangan'])->name('seeundangan');
 });
 

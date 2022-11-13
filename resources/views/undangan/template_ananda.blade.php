@@ -13,20 +13,6 @@
 	<meta name="author" content="FREEHTML5.CO" />
 	<link href="{{ asset('dashboard/images/logo-black.png') }}" rel="icon">
 
-  <!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
-
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
@@ -243,7 +229,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-					<span>Kami Mencintai Satu Sama Lain</span>
+					<span>Kisah Kami Satu Sama Lain</span>
 					<h2>Cerita Kami</h2>
 				</div>
 			</div>
@@ -318,59 +304,35 @@
 					<h2>Galeri Foto Kami</h2>
 				</div>
 			</div>
-			<div class="row row-bottom-padded-md">
+			@php
+
+			$cek_img = App\Models\Image::where('id_undangan', '=', $undangan->id)->count();								
+
+			@endphp
+			<div class="row row-bottom-padded-md" style="display:flex; flex-direction:row; justify-content:center;">
 				<div class="col-md-12">
-					<ul id="fh5co-gallery-list">	
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-1.jpg); "> 
+					<ul id="fh5co-gallery-list">
+						@if($cek_img != 0)
+						@foreach($image as $images)	
+						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url('{{ url('/db/'.$images->images)}}');" "> 
 							<a href="images/gallery-1.jpg">
 								<div class="case-studies-summary">
-									<span>Foto</span>
-									<h2>Lorem Ipsum</h2>
+									<!-- <span>Foto</span> -->
+									<!-- <h2>Lorem Ipsum</h2> -->
 								</div>
 							</a>
 						</li>
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-2.jpg); ">
-							<a href="#" class="color-2">
-								<div class="case-studies-summary">
-									<span>Foto</span>
-									<h2>Lorem Ipsum</h2>
-								</div>
-							</a>
-						</li>
-
+						@endforeach
+						@else
 						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
 							<a href="#" class="color-3">
 								<div class="case-studies-summary">
-									<span>Foto</span>
-									<h2>Lorem Ipsum</h2>
+									<!-- <span>Tidak ada Foto</span> -->
+									<h2>Tidak ada Foto</h2>
 								</div>
 							</a>
 						</li>
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-1.jpg); "> 
-							<a href="images/gallery-1.jpg">
-								<div class="case-studies-summary">
-									<span>Foto</span>
-									<h2>Lorem Ipsum</h2>
-								</div>
-							</a>
-						</li>
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-2.jpg); ">
-							<a href="#" class="color-2">
-								<div class="case-studies-summary">
-									<span>Foto</span>
-									<h2>Lorem Ipsum</h2>
-								</div>
-							</a>
-						</li>
-
-						<li class="one-third animate-box" data-animate-effect="fadeIn" style="background-image: url(images/gallery-3.jpg); ">
-							<a href="#" class="color-3">
-								<div class="case-studies-summary">
-									<span>Foto</span>
-									<h2>Lorem Ipsum</h2>
-								</div>
-							</a>
-						</li>					
+						@endif		
 					</ul>		
 				</div>
 			</div>
