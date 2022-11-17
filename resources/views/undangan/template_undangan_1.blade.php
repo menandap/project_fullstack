@@ -309,8 +309,10 @@
 			$cek_img = App\Models\Image::where('id_undangan', '=', $undangan->id)->count();								
 
 			@endphp
-			<div class="row row-bottom-padded-md" style="display:flex; flex-direction:row; justify-content:center;">
-				<div class="col-md-12">
+			<!-- <div class="container" style="display:flex; justify-content:center; align-items:center; height:100%;">
+			<div class="box" style="width:1000px;"> -->
+			<div class="row row-bottom-padded-md">
+				<div class="col-md-12" style="display:flex; flex-direction:row; justify-content:center;">
 					<ul id="fh5co-gallery-list">
 						@if($cek_img != 0)
 						@foreach($image as $images)	
@@ -336,6 +338,8 @@
 					</ul>		
 				</div>
 			</div>
+			<!-- </div>
+			</div> -->
 		</div>
 	</div>
 
@@ -598,23 +602,37 @@
 	<!-- Main -->
 	<script src="{{ asset('undangan/template-1/js/main.js') }}"></script>
 
+	<input id="jam" type="text" value="{{$undangan->wedding_date}}" hidden>
+
+	@php
+	$tanggal = strtotime($undangan->wedding_date);
+	$month = date('m', $tanggal);
+	$date = date('d', $tanggal);
+	$hour = date('H', $tanggal);
+	$minute = date('i', $tanggal);
+	@endphp
+
 	<script>
-    var d = new Date(new Date().getTime() + 200 * 120 * 120 * 2000);
+	// var d = new Date(new Date().getTime() + 200 * 20 * 20 * 2000);
+	console.log({{$hour}});
 
-    // default example
-    simplyCountdown('.simply-countdown-one', {
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate()
-    });
+	// default example
+	simplyCountdown('.simply-countdown-one', {
+		year: 2022,
+		month: {{$month}},
+		day: {{$date}},
+		hours: {{$hour}}+8,
+			minutes: {{$minute}},
+			seconds: 0,
+	});
 
-    //jQuery example
-    $('#simply-countdown-losange').simplyCountdown({
-        year: d.getFullYear(),
-        month: d.getMonth() + 1,
-        day: d.getDate(),
-        enableUtc: false
-    });
+	//jQuery example
+	$('#simply-countdown-losange').simplyCountdown({
+		year: d.getFullYear(),
+		month: d.getMonth() + 1,
+		day: d.getDate(),
+		enableUtc: false
+	});
 </script>
 
 	</body>

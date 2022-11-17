@@ -52,16 +52,19 @@ CREATE TABLE `events` (
   PRIMARY KEY (`id`),
   KEY `pk_event` (`id_undangan`),
   CONSTRAINT `pk_event` FOREIGN KEY (`id_undangan`) REFERENCES `undangans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `events` */
 
 insert  into `events`(`id`,`id_undangan`,`title`,`date`,`date_start`,`date_end`,`location`,`desc`,`created_at`,`updated_at`) values 
 (1,4,'Event1','2022-11-09','18:52:30','18:52:32','bali','kwowowowow',NULL,'2022-11-07 17:25:52'),
 (2,4,'Event2','2022-11-09','19:11:00','19:11:01','bali','hahahha',NULL,NULL),
-(4,7,'Cek1','2022-11-09','00:00:00','00:00:00','Bali','kwowowow','2022-11-07 16:21:21','2022-11-07 18:16:25'),
-(6,7,'Testss','2022-11-09','02:44:00','02:44:00','Bali','wkwoowow','2022-11-08 18:44:24','2022-11-08 18:44:24'),
-(7,7,'cek','2022-11-10','04:23:00','03:23:00','Bali','kwowowo','2022-11-08 19:23:22','2022-11-08 19:33:46');
+(4,21,'Cek1','2022-11-09','00:00:00','00:00:00','Bali','kwowowow','2022-11-07 16:21:21','2022-11-12 11:57:03'),
+(10,20,'coba','2022-11-12','23:22:00','23:22:00','Bali','wkowowoww',NULL,NULL),
+(11,22,'Event','2022-11-12','22:10:00','22:10:00','Bali','wkowow','2022-11-12 14:11:01','2022-11-12 14:11:01'),
+(12,23,'Coba1','2022-11-12','23:05:00','23:05:00','Bali','wkowowo','2022-11-12 15:05:27','2022-11-12 15:05:27'),
+(13,24,'G20','2022-11-14','20:39:00','21:39:00','Bali','kwowow','2022-11-14 12:39:43','2022-11-14 12:39:43'),
+(14,25,'Event2','2022-11-14','21:03:00','22:03:00','Bali','kwowow','2022-11-14 13:03:46','2022-11-14 13:03:46');
 
 /*Table structure for table `failed_jobs` */
 
@@ -108,15 +111,22 @@ DROP TABLE IF EXISTS `images`;
 CREATE TABLE `images` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_undangan` bigint(20) unsigned NOT NULL,
-  `image_name` varchar(255) NOT NULL,
+  `images` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_image` (`id_undangan`),
   CONSTRAINT `pk_image` FOREIGN KEY (`id_undangan`) REFERENCES `undangans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `images` */
+
+insert  into `images`(`id`,`id_undangan`,`images`,`created_at`,`updated_at`) values 
+(3,23,'undangan_image_1668355926.jpg','2022-11-13 16:12:06','2022-11-13 16:12:06'),
+(4,23,'undangan_image_1668356010.png','2022-11-13 16:13:30','2022-11-13 16:13:30'),
+(5,23,'undangan_image_1668356053.png','2022-11-13 16:14:13','2022-11-13 16:14:13'),
+(6,23,'undangan_image_1668356060.png','2022-11-13 16:14:20','2022-11-13 16:14:20'),
+(7,25,'undangan_image_1668430993.png','2022-11-14 13:03:13','2022-11-14 13:03:13');
 
 /*Table structure for table `migrations` */
 
@@ -184,16 +194,22 @@ CREATE TABLE `storys` (
   `id_undangan` bigint(20) unsigned NOT NULL,
   `title` char(50) NOT NULL,
   `date` date NOT NULL,
-  `images` varchar(255) NOT NULL,
+  `images` varchar(255) DEFAULT NULL,
   `desc` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pk_story` (`id_undangan`),
   CONSTRAINT `pk_story` FOREIGN KEY (`id_undangan`) REFERENCES `undangans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `storys` */
+
+insert  into `storys`(`id`,`id_undangan`,`title`,`date`,`images`,`desc`,`created_at`,`updated_at`) values 
+(5,20,'CCC','2022-11-12','','kwowow',NULL,NULL),
+(6,20,'DDD','2022-11-12','','kwowowo',NULL,NULL),
+(8,20,'ubah','2022-11-11','story_image_1668261928.png','kwoowowo','2022-11-12 11:30:11','2022-11-12 14:05:47'),
+(9,25,'Story1','2022-11-14','story_image_1668431070.png','kwowow','2022-11-14 13:04:30','2022-11-14 13:04:30');
 
 /*Table structure for table `trx` */
 
@@ -203,6 +219,7 @@ CREATE TABLE `trx` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `id_user` bigint(20) unsigned NOT NULL,
   `id_undangan` bigint(20) unsigned NOT NULL,
+  `status` int(11) NOT NULL,
   `keyword` char(50) NOT NULL,
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
@@ -213,14 +230,17 @@ CREATE TABLE `trx` (
   KEY `pk_undangan` (`id_undangan`),
   CONSTRAINT `pk_undangan` FOREIGN KEY (`id_undangan`) REFERENCES `undangans` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pk_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `trx` */
 
-insert  into `trx`(`id`,`id_user`,`id_undangan`,`keyword`,`date_start`,`date_end`,`created_at`,`updated_at`) values 
-(1,6,1,'coba','2022-11-02','2022-11-02',NULL,NULL),
-(2,6,4,'cek','2022-11-02','2022-11-02',NULL,NULL),
-(3,4,6,'tess','2022-11-08','2022-11-08',NULL,NULL);
+insert  into `trx`(`id`,`id_user`,`id_undangan`,`status`,`keyword`,`date_start`,`date_end`,`created_at`,`updated_at`) values 
+(2,6,4,1,'cek','2022-11-02','2022-11-02',NULL,NULL),
+(3,4,6,1,'tess','2022-11-08','2022-11-08',NULL,NULL),
+(6,6,23,1,'cobates','2022-11-14','2022-11-15',NULL,'2022-11-13 18:20:34'),
+(7,6,20,1,'tes11','2022-11-14','2022-11-19','2022-11-13 18:05:45','2022-11-13 18:05:45'),
+(8,6,24,1,'g20','2022-11-14','2022-11-16','2022-11-14 12:40:11','2022-11-14 12:40:11'),
+(9,6,25,1,'undangan_new','2022-11-14','2022-11-16','2022-11-14 13:10:05','2022-11-14 13:10:05');
 
 /*Table structure for table `undangans` */
 
@@ -245,16 +265,20 @@ CREATE TABLE `undangans` (
   PRIMARY KEY (`id`),
   KEY `pk_user_undangan` (`id_user`),
   CONSTRAINT `pk_user_undangan` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `undangans` */
 
 insert  into `undangans`(`id`,`id_user`,`title`,`featured_image`,`person_1_name`,`person_2_name`,`person_1_image`,`person_2_image`,`desc_person_1`,`desc_person_2`,`desc_wedding`,`wedding_date`,`wedding_location`,`created_at`,`updated_at`) values 
-(1,6,'UndanganTes','tes','Nama Pria','Nama Wanita','','','data1','data2','Om Swastiastu','2022-11-02 00:00:00','Bandung',NULL,'2022-11-07 17:36:42'),
 (4,3,'Coba','tes','nama1','nama2','','','data1','data2','ksaskaks','2022-11-02 00:00:00','bali',NULL,NULL),
 (5,7,'tes1','tes','nama1','nama1','','','data1','data2','kakaka','2022-11-04 21:36:21','bali',NULL,NULL),
 (6,4,'Cek','C:\\xampp\\tmp\\php7FA3.tmp','Pengantin Pria','Pengantin Wanita','C:\\xampp\\tmp\\php7FA1.tmp','C:\\xampp\\tmp\\php7FA2.tmp','kwowwow','wkowoww','kwowkwoow','2022-11-08 03:20:00','Bali','2022-11-07 16:18:31','2022-11-07 16:18:31'),
-(7,6,'Test','C:\\xampp\\tmp\\phpAF05.tmp','Pengantin Pria','Pengantin Wanita','C:\\xampp\\tmp\\phpAEF4.tmp','C:\\xampp\\tmp\\phpAF04.tmp','kwowowo','wkowowow','kwowow','2022-11-08 01:21:00','Bandung','2022-11-07 17:22:05','2022-11-07 17:22:05');
+(20,6,'Tes11','featured_image_1668237181.jpg','Pengantin Pria','Pengantin Wanita','person_1_image_1668237181.png','person_2_image_1668237181.png','wkwoow','wkowowow','kwwoow','2022-11-12 15:12:00','Bali','2022-11-12 07:13:01','2022-11-12 14:03:07'),
+(21,6,'WKowowow','featured_image_1668252252.jpg','Pengantin Pria','Pengantin Wanita','person_1_image_1668252252.png','person_2_image_1668252252.png','wkwowow','kwowow','wkwoow','2022-11-12 19:23:00','Bali','2022-11-12 11:24:12','2022-11-12 11:24:12'),
+(22,6,'Undangan','featured_image_1668262221.png','Pengantin Pria','Pengantin Wanita','person_1_image_1668262221.png','person_2_image_1668262221.png','wkwowowo','wkowow','kwowow','2022-11-12 22:09:00','Bali','2022-11-12 14:10:21','2022-11-12 14:10:21'),
+(23,6,'Coba','featured_image_1668265488.png','Pengantin Pria','Pengantin Wanita','person_1_image_1668265488.png','person_2_image_1668265488.png','wkowowow','wkwowowo','kwowowow','2022-11-15 19:00:00','Bali','2022-11-12 15:04:48','2022-11-14 09:39:06'),
+(24,6,'G20','featured_image_1668429527.png','Pengantin Pria','Pengantin Wanita','person_1_image_1668429527.png','person_2_image_1668429527.png','kwowow','kwwowow','kwowowo','2022-11-15 20:38:00','Bali','2022-11-14 12:38:47','2022-11-14 12:38:47'),
+(25,6,'Undangan New','featured_image_1668430960.png','Pengantin Pria','Pengantin Wanita','person_1_image_1668430960.png','person_2_image_1668430960.png','kwowwow','kwowowo','kwowowo','2022-11-15 21:02:00','Bali','2022-11-14 13:02:40','2022-11-14 13:02:40');
 
 /*Table structure for table `users` */
 
@@ -269,7 +293,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
@@ -278,7 +302,8 @@ insert  into `users`(`id`,`name`,`email`,`password`,`created_at`,`updated_at`) v
 (3,'demo','demo@gmail.com','$2y$10$YRj5rrePKlbJPz4RlZjIROP72q1e.7S03I02LU925yoe0kFpDL2PG','2022-10-12 13:37:30','2022-10-12 13:37:30'),
 (4,'Ananda Prema','anandaprema19@gmail.com','$2y$10$ShzIhbHz2QUf71wbuF7zmudN8ouGzobwN4xRajAaLyDHI4tC7iMxq','2022-10-15 15:10:07','2022-10-15 15:10:07'),
 (6,'Tes','anandaprema185@gmail.com','$2y$10$6kHXEgbwHwHNEHv.nMcmZOJvkfG7i4QlYMqKt5Jl4yQJWXnaiEwim','2022-11-01 16:25:58','2022-11-01 16:25:58'),
-(7,'Ananda Prema','bukuku@gmail.com','$2y$10$LROVQQetFXB.UIfo0sWr5u8zj9iMn7vrvL4tQ42BkKe3CW.xPgdFe','2022-11-04 13:34:01','2022-11-04 13:34:01');
+(7,'Ananda Prema','bukuku@gmail.com','$2y$10$LROVQQetFXB.UIfo0sWr5u8zj9iMn7vrvL4tQ42BkKe3CW.xPgdFe','2022-11-04 13:34:01','2022-11-04 13:34:01'),
+(12,'Coba','coba@gmail.com','$2y$10$C8MOki0rqp/CdJqO.OHVqOBWUEvpWqmtaKQRTTHIRVdV.IjJc/Imy','2022-11-12 02:01:13','2022-11-12 02:01:13');
 
 /*Table structure for table `wishes` */
 

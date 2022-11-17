@@ -58,7 +58,7 @@
                                                     <a href="myundangan/{{$undangan->id}}/show" class="m-1 btn bg-gradient-info"><i class="material-icons text-sm me-2">visibility</i>View</a>
                                                     <a href="myundangan/{{$undangan->id}}/edit" class="m-1 btn bg-gradient-warning"><i class="material-icons text-sm me-2">edit</i>Edit</a>
                                                     <a href="myundangan/{{$undangan->id}}/delete" class="m-1 btn bg-gradient-danger" onclick="return confirm('Apa yakin ingin menghapus data ini?')"><i class="material-icons text-sm me-2">delete</i>Delete</a>
-                                                    <a href="seeundangan/{{$undangan->id}}" class="m-1 btn bg-gradient-primary"><i class="material-icons text-sm me-2">insert_invitation</i>Undangan</a>
+                                                    <!-- <a href="seeundangan/{{$undangan->id}}" class="m-1 btn bg-gradient-primary"><i class="material-icons text-sm me-2">insert_invitation</i>Undangan</a> -->
                                                 </div>
                                             </td>
                                         </tr>
